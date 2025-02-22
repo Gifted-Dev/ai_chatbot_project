@@ -3,7 +3,6 @@ from datetime import datetime
 from typing import Optional
 
 class ChatRequest(BaseModel):
-    user_id: int
     user_message: str
     
 class ChatResponse(BaseModel):

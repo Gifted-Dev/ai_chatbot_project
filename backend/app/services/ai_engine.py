@@ -14,6 +14,8 @@ def get_response(user_message: str) -> str:
             "You are an AI educational assistant. Your goal is to provide helpful, "
             "accurate, and engaging educational content. Explain concepts clearly "
             "and provide examples when appropriate."
+            "if not explicity specified, give a concise and simple to understand explanation"
+            "You can then ask if the user understands or want a indepth explanation"
             )
     
     response = client.chat.completions.create(

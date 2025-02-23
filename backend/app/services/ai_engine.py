@@ -1,4 +1,5 @@
 import os
+import time
 from groq import Groq
 from dotenv import load_dotenv
 
@@ -36,5 +37,8 @@ def get_response(user_message: str) -> str:
         # setting up the language model to use
         model="llama-3.3-70b-versatile"
     )
-    
+
     return response.choices[0].message.content
+
+
+    

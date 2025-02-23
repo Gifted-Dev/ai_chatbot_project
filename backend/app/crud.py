@@ -13,7 +13,7 @@ def save_chat(db: Session, chat: schemas.ChatRequest, response: str):
 # READ - Get chat history for a specific user
 def get_chat_history(db: Session, limit: int = 10):
     return db.query(models.ChatMessage)\
-            .orderby(models.ChatMessage.timestamp.desc())\
+            .order_by(models.ChatMessage.timestamp.desc())\
             .limit(limit)\
             .all()
             

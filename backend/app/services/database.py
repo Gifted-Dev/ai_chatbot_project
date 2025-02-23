@@ -8,7 +8,12 @@ import os
 load_dotenv()
 
 # database credentials
+
 database_url = os.getenv("DATABASE_URL")
+
+
+if not database_url:
+    raise ValueError("DATABASE_URL is missing!")
 
 engine = create_engine(database_url)
 sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

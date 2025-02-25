@@ -11,7 +11,6 @@ load_dotenv()
 
 database_url = os.getenv("DATABASE_URL")
 
-
 if not database_url:
     raise ValueError("DATABASE_URL is missing!")
 
@@ -20,8 +19,6 @@ sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-# This will create the tables defined in your models
-Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = sessionlocal()

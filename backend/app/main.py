@@ -4,6 +4,10 @@ from .services.database import Base, engine
 from .routes import chatbot, history
 from . import models, crud, schemas
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # This will create the tables defined in your models
 Base.metadata.create_all(bind=engine)

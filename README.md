@@ -17,67 +17,111 @@ This repository contains the backend for an AI-Powered Educational Chatbot. It's
 -   **Data Validation**: [Pydantic](https://pydantic-docs.helpmanual.io/)
 -   **Environment Variables**: [python-dotenv](https://pypi.org/project/python-dotenv/)
 -   **ASGI Server**: [Uvicorn](https://www.uvicorn.org/)
--   **AI Integration**: (e.g., OpenAI, Hugging Face, etc. - *Please specify the service you are using*)
+-   **AI Integration**: [Groq](https://groq.com/) with llama-3.3-70b-versatile model
+
+## ✨ Features
+
+### 🤖 AI Chatbot
+- **Advanced AI Responses**: Powered by Groq's llama-3.3-70b-versatile model
+- **Real-time Streaming**: Typewriter effect for natural conversation flow
+- **Context Awareness**: Maintains conversation context for better responses
+
+### 🎨 Enhanced Frontend
+- **Modern UI**: Beautiful gradient design with responsive layout
+- **Chat Statistics**: Real-time metrics and session tracking
+- **Export Functionality**: Download chat history as JSON
+- **Backend Monitoring**: Live status indicators and health checks
+- **Error Handling**: Comprehensive error messages and retry mechanisms
+
+### 🔧 Backend Features
+- **RESTful API**: Clean, documented API endpoints
+- **Database Integration**: Persistent chat history with PostgreSQL
+- **Health Checks**: Built-in monitoring and status endpoints
+- **CORS Support**: Cross-origin resource sharing enabled
+- **Input Validation**: Robust data validation with Pydantic
+
+### 🐳 Docker Support
+- **Containerized Deployment**: Full Docker and Docker Compose support
+- **Multi-stage Builds**: Optimized production images
+- **Development Mode**: Hot reload for rapid development
+- **Service Orchestration**: Automated service dependencies and health checks
 
 ## 📂 Project Structure
 
-The project follows a standard FastAPI application structure:
+The project follows a clean, professional structure with organized directories:
 
 ```
-.
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── crud.py           # Database Create, Read, Update, Delete operations
-│   │   ├── main.py           # FastAPI application entry point
-│   │   ├── models.py         # SQLAlchemy database models
-│   │   ├── routes/
-│   │   │   ├── __init__.py
-│   │   │   ├── chatbot.py    # API routes for chat functionality
-│   │   │   └── history.py    # API routes for chat history
-│   │   ├── schemas.py        # Pydantic data validation schemas
-│   │   └── services/
-│   │       ├── __init__.py
-│   │       └── database.py   # Database session and engine setup
-│   ├── .env.example          # Example environment variables
-│   └── requirements.txt      # Python dependencies
-└── README.md
+ai_chatbot_project/
+├── 📁 backend/                 # FastAPI backend application
+├── 📁 frontend/                # Streamlit web interface
+├── 📁 database/                # Database config
+├── 📁 tests/                   # Test suite
+├── 📄 docker-compose.yml       # Docker setup
+├── 📄 requirements.txt         # Python dependencies
+├── 📄 run_tests.py             # Test runner
+└── 📄 README.md                # This file
 ```
+
+### Directory Details
+
+- **`backend/`** - FastAPI application with routes, services, models, and schemas
+- **`frontend/`** - Streamlit web interface with enhanced UI/UX
+- **`database/`** - PostgreSQL initialization scripts
+- **`tests/`** - Test suite (unit, integration, docker tests)
 
 ## 🚀 Getting Started
 
-Follow these instructions to get the project up and running on your local machine.
+Choose one of two deployment methods:
 
-### Prerequisites
+### 🐳 Method 1: Docker Deployment (Recommended)
 
--   Python 3.8+
--   A package manager like `pip`
+**Prerequisites:** Docker and Docker Compose
 
-### Installation
+1. **Clone and configure:**
+   ```bash
+   git clone https://github.com/your-username/ai_chatbot_project.git
+   cd ai_chatbot_project
+   cp .env.docker .env
+   # Edit .env and add your GROQ_API_KEY
+   ```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd ai_chatbot_project/backend
-    ```
+2. **Start the application:**
+   ```bash
+   docker-compose up --build -d
+   ```
 
-2.  **Create and activate a virtual environment:**
-    -   On macOS and Linux:
-        ```bash
-        python3 -m venv venv
-        source venv/bin/activate
-        ```
-    -   On Windows:
-        ```bash
-        python -m venv venv
-        .\venv\Scripts\activate
-        ```
+3. **Access the application:**
+   - **Frontend**: http://localhost:8501
+   - **Backend API**: http://localhost:8000
+   - **API Docs**: http://localhost:8000/docs
 
-3.  **Install the dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-    *(Note: A `requirements.txt` file is assumed. If you don't have one, you can create it with `pip freeze > requirements.txt` after installing the necessary packages like `fastapi`, `uvicorn`, `sqlalchemy`, `pydantic`, `python-dotenv`, and your database driver e.g. `psycopg2-binary` or `pysqlite3`)*
+### 💻 Method 2: Local Development
+
+**Prerequisites:** Python 3.8+, PostgreSQL
+
+1. **Setup backend:**
+   ```bash
+   git clone https://github.com/your-username/ai_chatbot_project.git
+   cd ai_chatbot_project
+
+   # Install dependencies
+   pip install -r requirements.txt
+
+   # Configure environment
+   cp backend/.env.example .env
+   # Edit .env with your GROQ_API_KEY and database settings
+
+   # Start backend
+   cd backend
+   uvicorn app.main:app --reload
+   ```
+
+2. **Setup frontend (new terminal):**
+   ```bash
+   cd frontend
+   pip install streamlit requests pandas plotly
+   streamlit run app.py
+   ```
 
 4.  **Set up environment variables:**
     Create a `.env` file in the `backend/` directory by copying the example:
@@ -92,6 +136,69 @@ Follow these instructions to get the project up and running on your local machin
     uvicorn app.main:app --reload
     ```
     The application will be available at `http://127.0.0.1:8000`.
+
+</details>
+
+## 🐳 Docker Commands
+
+```bash
+# Start all services
+docker-compose up --build -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all services
+docker-compose down
+
+# Clean restart
+docker-compose down -v && docker-compose up --build -d
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+python -m pytest tests/ -v
+
+# Or use the test runner
+python run_tests.py
+```
+
+## ⚙️ Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `GROQ_API_KEY` | ✅ | Groq API key for AI responses |
+| `POSTGRES_DB` | ✅ | Database name |
+| `POSTGRES_USER` | ✅ | Database username |
+| `POSTGRES_PASSWORD` | ✅ | Database password |
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Services won't start:**
+```bash
+docker-compose ps
+docker-compose logs -f
+```
+
+**Port conflicts:**
+```bash
+# Check what's using ports 8000, 8501, 5432
+netstat -ano | findstr :8000  # Windows
+lsof -i :8000                 # Linux/Mac
+```
+
+**Database issues:**
+```bash
+docker-compose down -v && docker-compose up -d
+```
+
+**Test the endpoints:**
+- Backend: http://localhost:8000/docs
+- Frontend: http://localhost:8501
 
 ## 📝 API Documentation
 
